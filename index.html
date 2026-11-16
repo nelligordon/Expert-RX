@@ -19,11 +19,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100svh;
-    min-height: 100dvh;
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
   }
   .flyer {
     position: relative;
+    /* Desktop/tablet default: show the complete flyer within one viewport. */
     width: min(100vw, calc(100dvh * 770 / 1080));
     height: min(100dvh, calc(100vw * 1080 / 770));
     aspect-ratio: 770 / 1080;
@@ -34,6 +36,16 @@
     overflow: hidden;
     container-type: inline-size;
   }
+  /* Phones: fill the visible screen. A little horizontal artwork may be cropped
+     on unusually tall screens, but the page never scrolls. */
+  @media (max-width: 767px) {
+    html, body { background: #000000; }
+    .flyer {
+      width: max(100vw, calc(100dvh * 770 / 1080));
+      height: max(100dvh, calc(100vw * 1080 / 770));
+    }
+  }
+
   .hit {
     position: absolute;
     display: block;
